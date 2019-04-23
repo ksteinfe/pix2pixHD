@@ -38,7 +38,7 @@ def define_G(input_nc, output_nc, ngf, netG, n_downsample_global=3, n_blocks_glo
         netG = Encoder(input_nc, output_nc, ngf, n_downsample_global, norm_layer)
     else:
         raise('generator not implemented!')
-    #print(netG)
+    print(netG)
     if len(gpu_ids) > 0:
         assert(torch.cuda.is_available())
         netG.cuda(gpu_ids[0])
@@ -196,7 +196,7 @@ class GlobalGenerator(nn.Module):
             # ksteinfe
             #model += [nn.Conv2d(ngf * mult, ngf * mult * 2, kernel_size=3, stride=2, padding=1),
             #          norm_layer(ngf * mult * 2), activation]
-            model += [nn.ReflectionPad2d(3), nn.Conv2d(ngf * mult, ngf * mult * 2, kernel_size=3, stride=2, padding=0),
+            model += [nn.ReflectionPad2d(1), nn.Conv2d(ngf * mult, ngf * mult * 2, kernel_size=3, stride=2, padding=0),
                       norm_layer(ngf * mult * 2), activation]
 
         ### resnet blocks
